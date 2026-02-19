@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Testimonials - AVAIA Mind Clinic</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Roboto:wght@300;400;500;600;700&display=swap');
+  
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #F5F0E9 0%, #E9E1CC 100%);
+    color: #5B5144;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .bg-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20 20c10-5 20 0 30-10s20-5 30 5-10 20-5 30 15 10 5 20-25 5-35-5-5-25-15-35-5-15-10-5z" fill="none" stroke="%23E9E1CC" stroke-width="0.5" opacity="0.3"/></svg>');
+    background-size: 200px 200px;
+    z-index: -1;
+  }
+
+  header {
+    background: rgba(233, 225, 204, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(91, 81, 68, 0.1);
+  }
+
+  .logo {
+    max-width: 120px;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin: 0;
+    color: #5B5144;
+  }
+
+  h1 small {
+    display: block;
+    font-size: 0.7em;
+    letter-spacing: 0.2rem;
+    margin-top: 0.2rem;
+    font-weight: 400;
+  }
+
+  .tagline {
+    font-style: italic;
+    color: #85775B;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+
+  nav {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    color: #5B5144;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+  }
+
+  nav a:hover, nav a.active {
+    background: rgba(133, 119, 91, 0.2);
+    color: #85775B;
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+  }
+
+  .testimonials-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(91, 81, 68, 0.1);
+  }
+
+  .testimonials-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #5B5144;
+  }
+
+  /* Backend Dynamic Content Container */
+  #testimonials-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .testimonial-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(91, 81, 68, 0.1);
+    border: 1px solid rgba(233, 225, 204, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(91, 81, 68, 0.15);
+  }
+
+  .testimonial-card::before {
+    content: '"';
+    font-size: 4rem;
+    font-family: 'Playfair Display', serif;
+    color: #85775B;
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    opacity: 0.3;
+  }
+
+  .testimonial-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    color: #5B5144;
+  }
+
+  .testimonial-author {
+    font-weight: 600;
+    color: #85775B;
+    font-size: 0.9rem;
+  }
+
+  .testimonial-rating {
+    color: #DAA520;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+
+  /* Placeholder for empty state */
+  .testimonials-placeholder {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px dashed #85775B;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    color: #85775B;
+    grid-column: 1 / -1;
+  }
+
+  .testimonials-placeholder h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, #5B5144, #85775B);
+    color: #F5F0E9;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(91, 81, 68, 0.3);
+  }
+
+  .cta-section {
+    text-align: center;
+    background: rgba(133, 119, 91, 0.1);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    backdrop-filter: blur(12px);
+  }
+
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #5B5144;
+  }
+
+  .float-actions {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 200;
+  }
+
+  .float-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .float-btn.call {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+  }
+
+  .float-btn.whatsapp {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+  }
+
+  .float-btn.book {
+    background: linear-gradient(135deg, #5B5144, #85775B);
+    color: #F5F0E9;
+    width: auto;
+    padding: 0 1.5rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .float-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+  }
+
+  footer {
+    background: rgba(233, 225, 204, 0.9);
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: 4rem;
+    color: #5B5144;
+    backdrop-filter: blur(10px);
+  }
+
+  @media (max-width: 768px) {
+    #testimonials-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .testimonials-header h2 {
+      font-size: 2rem;
+    }
+    
+    .float-actions {
+      bottom: 1rem;
+      right: 1rem;
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+    
+    .float-btn {
+      width: 50px;
+      height: 50px;
+      font-size: 1.2rem;
+    }
+    
+    nav {
+      gap: 1rem;
+    }
+    
+    nav a {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="bg-pattern"></div>
+  
+  <header>
+    <img src="logo.png" alt="AVAIA Mind Clinic Logo" class="logo">
+    <h1>AVAIA <br><small>Mind Clinic</small></h1>
+    <p class="tagline">Where insight goes beyond perception</p>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="testimonials.html" class="active">Testimonials</a>
+      <a href="services.html">Services</a>
+      <a href="book.html">Book Appointment</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="testimonials-header">
+      <h2>What Our Clients Say</h2>
+      <p>Real stories from real people who have found healing, growth, and transformation through our clinical psychology services.</p>
+    </div>
+
+    <!-- BACKEND DYNAMIC CONTENT CONTAINER -->
+    <div id="testimonials-container">
+      <!-- Placeholder shown when no testimonials are loaded -->
+      <div class="testimonials-placeholder">
+        <h3>Testimonials Loading...</h3>
+        <p>Client testimonials will be displayed here once they are added through the backend system.</p>
+        <p><strong>For Developers:</strong> Use the <code>#testimonials-container</code> div to inject testimonial cards dynamically. Each testimonial should follow the <code>.testimonial-card</code> structure shown in the comments below.</p>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h2>Ready to Start Your Own Journey?</h2>
+      <p>Join others who have chosen to prioritize their mental health and personal growth. Professional, confidential clinical psychology services.</p>
+      <a href="book.html" class="btn-primary">Book Your Consultation</a>
+    </div>
+  </main>
+
+  <div class="float-actions">
+    <a href="tel:+918149794048" class="float-btn call" aria-label="Call Us">
+      <i class="fas fa-phone"></i>
+    </a>
+    <a href="https://wa.me/918149794048" class="float-btn whatsapp" target="_blank" aria-label="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="book.html" class="float-btn book">Book</a>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 AVAIA Mind Clinic | Ground Floor, Anand Chamber, 219 Opposite Mokha Engineering, Shivajinagar, Pune 411005</p>
+    <p>Phone: +91 814 979 4048 | Email: avaiamindclinic@gmail.com</p>
+  </footer>
+
+  <!-- 
+  BACKEND DEVELOPERS: Use this structure to inject testimonials dynamically:
+  
+  <div class="testimonial-card">
+    <div class="testimonial-rating">★★★★★</div>
+    <div class="testimonial-text">[Testimonial text goes here]</div>
+    <div class="testimonial-author">- [Client initials or anonymous], [Age/Location if provided]</div>
+  </div>
+  
+  Example JavaScript for dynamic loading:
+  
+  function loadTestimonials() {
+    fetch('/api/testimonials')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('testimonials-container');
+        container.innerHTML = '';
+        data.forEach(testimonial => {
+          const card = createTestimonialCard(testimonial);
+          container.appendChild(card);
+        });
+      });
+  }
+  -->
+
+</body>
+</html>

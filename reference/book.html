@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Book Appointment - AVAIA Mind Clinic</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Roboto:wght@300;400;500;600;700&display=swap');
+  
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #F5F0E9 0%, #E9E1CC 100%);
+    color: #5B5144;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .bg-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20 20c10-5 20 0 30-10s20-5 30 5-10 20-5 30 15 10 5 20-25 5-35-5-5-25-15-35-5-15-10-5z" fill="none" stroke="%23E9E1CC" stroke-width="0.5" opacity="0.3"/></svg>');
+    background-size: 200px 200px;
+    z-index: -1;
+  }
+
+  header {
+    background: rgba(233, 225, 204, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(91, 81, 68, 0.1);
+  }
+
+  .logo {
+    max-width: 120px;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin: 0;
+    color: #5B5144;
+  }
+
+  h1 small {
+    display: block;
+    font-size: 0.7em;
+    letter-spacing: 0.2rem;
+    margin-top: 0.2rem;
+    font-weight: 400;
+  }
+
+  .tagline {
+    font-style: italic;
+    color: #85775B;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+
+  nav {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    color: #5B5144;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+  }
+
+  nav a:hover, nav a.active {
+    background: rgba(133, 119, 91, 0.2);
+    color: #85775B;
+  }
+
+  main {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+  }
+
+  .booking-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(91, 81, 68, 0.1);
+  }
+
+  .booking-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #5B5144;
+  }
+
+  .booking-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .booking-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(91, 81, 68, 0.1);
+    border: 1px solid rgba(233, 225, 204, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+  }
+
+  .booking-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(91, 81, 68, 0.15);
+  }
+
+  .booking-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #5B5144;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .booking-icon {
+    font-size: 2rem;
+    color: #85775B;
+  }
+
+  .contact-form {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(91, 81, 68, 0.1);
+    border: 1px solid rgba(233, 225, 204, 0.5);
+    margin-bottom: 3rem;
+  }
+
+  .contact-form h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #5B5144;
+    text-align: center;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #5B5144;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(133, 119, 91, 0.3);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: #5B5144;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #85775B;
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .btn-primary {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #5B5144, #85775B);
+    color: #F5F0E9;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(91, 81, 68, 0.3);
+  }
+
+  .contact-info {
+    background: rgba(133, 119, 91, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(12px);
+    text-align: center;
+  }
+
+  .contact-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #5B5144;
+  }
+
+  .contact-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .contact-method {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 15px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .contact-method a {
+    color: #5B5144;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .contact-method a:hover {
+    color: #85775B;
+  }
+
+  .float-actions {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 200;
+  }
+
+  .float-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .float-btn.call {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+  }
+
+  .float-btn.whatsapp {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+  }
+
+  .float-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+  }
+
+  footer {
+    background: rgba(233, 225, 204, 0.9);
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: 4rem;
+    color: #5B5144;
+    backdrop-filter: blur(10px);
+  }
+
+  @media (max-width: 768px) {
+    .booking-options {
+      grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+    
+    .contact-methods {
+      grid-template-columns: 1fr;
+    }
+    
+    .booking-header h2 {
+      font-size: 2rem;
+    }
+    
+    .float-actions {
+      bottom: 1rem;
+      right: 1rem;
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+    
+    .float-btn {
+      width: 50px;
+      height: 50px;
+      font-size: 1.2rem;
+    }
+    
+    nav {
+      gap: 1rem;
+    }
+    
+    nav a {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="bg-pattern"></div>
+  
+  <header>
+    <img src="logo.png" alt="AVAIA Mind Clinic Logo" class="logo">
+    <h1>AVAIA <br><small>Mind Clinic</small></h1>
+    <p class="tagline">Where insight goes beyond perception</p>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="services.html">Services</a>
+      <a href="book.html" class="active">Book Appointment</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="booking-header">
+      <h2>Schedule Your Consultation</h2>
+      <p>Take the first step toward professional clinical psychology care. Choose your preferred method to connect with us.</p>
+    </div>
+
+    <div class="booking-options">
+      <div class="booking-card">
+        <h3><i class="fas fa-phone booking-icon"></i> Call Us</h3>
+        <p>Speak directly with our team to schedule your appointment and ask any questions about our services.</p>
+        <a href="tel:+918149794048" class="btn-primary">Call +91 814 979 4048</a>
+      </div>
+
+      <div class="booking-card">
+        <h3><i class="fab fa-whatsapp booking-icon"></i> WhatsApp</h3>
+        <p>Send us a message on WhatsApp for quick responses and easy scheduling at your convenience.</p>
+        <a href="https://wa.me/918149794048" class="btn-primary" target="_blank">Message on WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h3>Request an Appointment</h3>
+      <form action="#" method="POST" id="appointment-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" name="firstName" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" name="lastName" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="18" max="100">
+          </div>
+          <div class="form-group">
+            <label for="preferredTime">Preferred Time</label>
+            <select id="preferredTime" name="preferredTime">
+              <option value="">Select preferred time</option>
+              <option value="morning">Morning (9 AM - 12 PM)</option>
+              <option value="afternoon">Afternoon (12 PM - 5 PM)</option>
+              <option value="evening">Evening (5 PM - 8 PM)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="serviceType">Type of Service Needed</label>
+          <select id="serviceType" name="serviceType">
+            <option value="">Select service type</option>
+            <option value="individual">Individual Psychotherapy</option>
+            <option value="couples">Couples Therapy</option>
+            <option value="trauma">Trauma-Informed Therapy</option>
+            <option value="cbt">Cognitive Behavioral Therapy</option>
+            <option value="assessment">Psychological Assessment</option>
+            <option value="consultation">Initial Consultation</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="concerns">Brief Description of Concerns (Optional)</label>
+          <textarea id="concerns" name="concerns" placeholder="Please share any specific concerns or goals you'd like to address in therapy. This information helps us prepare for your session."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="previousTherapy">Have you had therapy before?</label>
+          <select id="previousTherapy" name="previousTherapy">
+            <option value="">Select an option</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="prefer-not-to-say">Prefer not to say</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary">Submit Appointment Request</button>
+      </form>
+    </div>
+
+    <div class="contact-info">
+      <h3>Get in Touch</h3>
+      <p>We're here to answer your questions and help you take the first step toward mental wellness.</p>
+      
+      <div class="contact-methods">
+        <div class="contact-method">
+          <i class="fas fa-phone" style="color: #85775B; font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+          <div>
+            <strong>Phone</strong>
+            <br><a href="tel:+918149794048">+91 814 979 4048</a>
+          </div>
+        </div>
+        
+        <div class="contact-method">
+          <i class="fas fa-envelope" style="color: #85775B; font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+          <div>
+            <strong>Email</strong>
+            <br><a href="mailto:avaiamindclinic@gmail.com">avaiamindclinic@gmail.com</a>
+          </div>
+        </div>
+        
+        <div class="contact-method">
+          <i class="fas fa-map-marker-alt" style="color: #85775B; font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+          <div>
+            <strong>Location</strong>
+            <br>Ground Floor, Anand Chamber<br>219 Opposite Mokha Engineering<br>Shivajinagar, Pune 411005
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="float-actions">
+    <a href="tel:+918149794048" class="float-btn call" aria-label="Call Us">
+      <i class="fas fa-phone"></i>
+    </a>
+    <a href="https://wa.me/918149794048" class="float-btn whatsapp" target="_blank" aria-label="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 AVAIA Mind Clinic | Ground Floor, Anand Chamber, 219 Opposite Mokha Engineering, Shivajinagar, Pune 411005</p>
+    <p>Phone: +91 814 979 4048 | Email: avaiamindclinic@gmail.com</p>
+  </footer>
+
+  <script>
+    // Basic form handling
+    document.getElementById('appointment-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Here you would typically send the form data to your backend
+      alert('Thank you for your appointment request! We will contact you within 24 hours to confirm your appointment details.');
+      
+      // Reset form
+      this.reset();
+    });
+  </script>
+</body>
+</html>
