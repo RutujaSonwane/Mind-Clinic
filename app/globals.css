@@ -713,7 +713,7 @@ footer {
     top: 0;
     right: 0;
     height: 100vh;
-    width: min(85vw, 320px);
+    width: min(72vw, 280px);
     background: rgba(245, 240, 233, 0.98);
     backdrop-filter: blur(10px);
     border-left: 1px solid rgba(91, 81, 68, 0.2);
@@ -752,10 +752,12 @@ footer {
   }
 
   .mobile-sidebar-nav a {
+    font-size: 0.82rem;
     color: #5b5144;
     text-decoration: none;
     font-weight: 500;
-    padding: 0.55rem 0.75rem;
+    padding: 0.45rem 0.6rem;
+    line-height: 1.2;
     border-radius: 10px;
     transition: background 0.2s ease, color 0.2s ease;
   }
