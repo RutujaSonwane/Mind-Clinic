@@ -809,12 +809,12 @@ footer {
   }
 
   .avaia-bold {
-    font-size: 1.1rem;
+    font-size: 2rem;
     line-height: 1;
   }
 
   .mind-clinic {
-    font-size: 0.55em;
+    font-size: 1em;
     letter-spacing: 0.08rem;
     line-height: 1;
   }
@@ -822,8 +822,6 @@ footer {
   h1 {
     font-size: 1.8rem;
   }
-
-
 
   .tagline {
     font-size: 0.9rem;
