@@ -5,6 +5,7 @@ import "./globals.css"
 import Header from "@/components/layout/header"
 import Footer from "@/components/layout/footer"
 import FloatingActions from "@/components/layout/floating-actions"
+import ScrollReveal from "@/components/layout/scroll-reveal"
 
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
@@ -23,7 +24,12 @@ export const metadata: Metadata = {
   description:
     "Evidence-based clinical psychology services that foster awareness, healing, and growth. Professional online therapy with qualified clinical psychologists.",
   keywords: "clinical psychology, online therapy, mental health, counseling, CBT, trauma therapy, Pune",
-    generator: 'v0.app'
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
+  generator: "v0.app",
 }
 
 export default function RootLayout({
@@ -37,6 +43,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
       </head>
       <body>
+        <ScrollReveal />
         <div className="bg-pattern"></div>
         <Header />
         <main>{children}</main>
